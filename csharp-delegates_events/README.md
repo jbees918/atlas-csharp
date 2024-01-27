@@ -1,1 +1,1 @@
-C# delegates and events Atlas ARVR
+C# delegates and events for Atlas ARVR
