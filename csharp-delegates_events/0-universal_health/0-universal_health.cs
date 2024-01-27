@@ -1,4 +1,6 @@
-﻿public class Player
+﻿using system;
+
+public class Player
 {
     private float maxHp;
     private string name;
