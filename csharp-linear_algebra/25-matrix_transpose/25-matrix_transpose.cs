@@ -6,7 +6,7 @@
 public class MatrixMath
 {
     /// <summary>
-    /// Transposes matrix and returns the resulting matrix.
+    /// Transposes a matrix and returns the resulting matrix.
     /// </summary>
     /// <param name="matrix">The matrix.</param>
     /// <returns>The resulting matrix after transposition, or an empty matrix if the input matrix is empty.</returns>
