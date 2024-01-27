@@ -1,31 +1,32 @@
-﻿using System;
-
-/// <summary> Player class </summary>
-public class Player
+﻿public class Player
 {
-    /// <summary> Player name </summary>
-    private string playerName;
-    /// <summary> Player maxHp </summary>
-    private float playerMaxHp;
-    /// <summary> Player hp </summary>
-    private float playerHp;
+    private float maxHp;
+    private string name;
+    private float hp;
 
-    /// <summary> Player Constructor </summary>
+    /// <summary>
+    /// Creates new Player.
+    /// </summary>
+    /// <param name="name">Player name.</param>
+    /// <param name="maxHp">Max health points of player. Must be greater than 0. Default is 100f.</param>
     public Player(string name = "Player", float maxHp = 100f)
     {
-        playerName = name;
-        if (maxHp <= 0f)
+        if (maxHp <= 0)
         {
-            Console.WriteLine("maxHp must be greater than 0. maxHp set to 100f by default.");
             maxHp = 100f;
+            Console.WriteLine("maxHp must be greater than 0. maxHp set to 100f by default.");
         }
-        playerMaxHp = maxHp;
-        playerHp = playerMaxHp;
+
+        this.name = name;
+        this.maxHp = maxHp;
+        this.hp = maxHp;
     }
 
-    /// <summary> PrintHealth Method </summary>
+    /// <summary>
+    /// Print player health.
+    /// </summary>
     public void PrintHealth()
     {
-        Console.WriteLine("{0} has {1} / {2} health", playerName, playerHp, playerMaxHp);
+        Console.WriteLine($"{name} has {hp} / {maxHp} health");
     }
 }
