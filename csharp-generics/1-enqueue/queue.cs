@@ -1,6 +1,4 @@
-﻿using System;
-
-public class Queue<T>
+﻿public class Queue<T>
 {
     // Nested Node class
     public class Node
@@ -37,8 +35,8 @@ public class Queue<T>
         Count++;
     }
 
-    // Count method
-    public int Count()
+    // CountNodes method
+    public int CountNodes()
     {
         return Count;
     }
