@@ -1,4 +1,4 @@
-﻿// Peek method
+﻿// Peek method.
 public T Peek()
 {
     if (Head != null)
