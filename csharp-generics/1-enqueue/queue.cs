@@ -1,39 +1,45 @@
-﻿// Define a simple queue class
+﻿using System;
+
 public class Queue<T>
 {
-    // Store items in queue
-    private List<T> _items = new List<T>();
+    // Nested Node class
+    public class Node
+    {
+        public T Value { get; set; }
+        public Node Next { get; set; }
 
-    // Add item to end of queue
+        public Node(T value)
+        {
+            Value = value;
+        }
+    }
+
+    // Properties
+    public Node Head { get; private set; }
+    public Node Tail { get; private set; }
+    public int Count { get; private set; }
+
+    // Enqueue method
     public void Enqueue(T item)
     {
-        _items.Add(item);
-    }
+        var newNode = new Node(item);
 
-    // Remove and return item from front of queue
-    public T Dequeue()
-    {
-        if (_items.Count == 0)
+        if (Head == null)
         {
-            throw new InvalidOperationException("Queue is empty");
-        }
-
-        T item = _items[0];
-        _items.RemoveAt(0);
-
-        return item;
-    }
-
-    // Return type of items in queue
-    public Type CheckType()
-    {
-        if (_items.Count > 0)
-        {
-            return _items[0].GetType();
+            Head = newNode;
         }
         else
         {
-            return typeof(T);
+            Tail.Next = newNode;
         }
+
+        Tail = newNode;
+        Count++;
+    }
+
+    // Count method
+    public int Count()
+    {
+        return Count;
     }
 }
