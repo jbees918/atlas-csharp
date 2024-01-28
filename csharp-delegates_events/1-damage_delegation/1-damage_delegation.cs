@@ -1,54 +1,70 @@
 ﻿using System;
 
+public delegate void CalculateHealth(float amount);
+
 public class Player
 {
-    private string playerName { get; set; }
-    private float playerMaxHp { get; set; }
-    public float playerHp { get; private set; }
-    public delegate void CalculateHealth(float amount);
+    private float maxHp;
+    private string name;
+    private float hp;
 
-    public Player() : this("Player", 100f) { }
-    public Player(string name) : this(name, 100f) { }
-    public Player(float maxHp) : this("Player", maxHp) { }
-
-    public Player(string name, float maxHp)
+    public Player(string name = "Player", float maxHp = 100f)
     {
         if (maxHp <= 0)
         {
-            Console.WriteLine("maxHp must be greater than 0. maxHp set to 100f by default.");
             maxHp = 100f;
+            Console.WriteLine("maxHp must be greater than 0. maxHp set to 100f by default.");
         }
-        playerName = name;
-        playerMaxHp = maxHp;
-        playerHp = maxHp;
-    }
 
-    public void PrintHealth()
-    {
-        Console.WriteLine($"{playerName} has {playerHp} / {playerMaxHp} health");
+        this.name = name;
+        this.maxHp = maxHp;
+        this.hp = maxHp;
     }
 
     public void TakeDamage(float damage)
     {
-        if (damage < 0)
+        if (damage >= 0)
         {
-            Console.WriteLine($"{playerName} takes 0 damage!");
+            hp -= damage;
+            Console.WriteLine($"{name} takes {damage} damage!");
         }
         else
         {
-            Console.WriteLine($"{playerName} takes {damage} damage!");
+            Console.WriteLine($"{name} takes 0 damage!");
         }
     }
 
     public void HealDamage(float heal)
     {
-        if (heal < 0)
+        if (heal >= 0)
         {
-            Console.WriteLine($"{playerName} heals 0 HP!");
+            hp += heal;
+            Console.WriteLine($"{name} heals {heal} HP!");
         }
         else
         {
-            Console.WriteLine($"{playerName} heals {heal} HP!");
+            Console.WriteLine($"{name} heals 0 HP!");
         }
+    }
+
+    public void PrintHealth()
+    {
+        Console.WriteLine($"{name} has {hp} / {maxHp} health");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        Player player = new Player("Electric Mouse");
+
+        CalculateHealth damage = player.TakeDamage;
+        damage(25f);
+
+        CalculateHealth heal = player.HealDamage;
+        heal(10f);
+
+        damage(-25f);
     }
 }
