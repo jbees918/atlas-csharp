@@ -1,90 +1,50 @@
-﻿using System;
+﻿Based on 1-enqueue, add a new method Dequeue() to the class Queue<T> that removes the first node in the queue and returns its value.
 
-/// <summary> Represents generic queue. </summary>
-public class Queue<T>
+If the queue is empty, the method should write Queue is empty to the console and return the default value of the parameter’s type
+carrie@ubuntu:~/csharp-generics/2-dequeue$ cat 0-main.cs
+using System;
+
+class Program
 {
-    /// <summary> Represents node in a queue. </summary>
-    public class Node
+    static void Main(string[] args)
     {
-        /// <summary> Gets or sets value of node. </summary>
-        public T value { get; set; }
+        Queue<int> myIntQ = new Queue<int>();
 
-        /// <summary> Gets or sets next node in queue. </summary>
-        public Node next { get; set; }
+        myIntQ.Enqueue(100);
+        myIntQ.Enqueue(101);
+        Console.WriteLine("Number of nodes in queue: " + myIntQ.Count());
 
-        /// <summary> Initializes new instance of the <see cref="Node"/> class. </summary>
-        /// <param name="val">Value of node.</param>
-        public Node(T val)
-        {
-            value = val;
-            next = null;
-        }
-    }
+        Console.WriteLine("First value: " + myIntQ.Dequeue());
+        Console.WriteLine("Number of nodes in queue: " + myIntQ.Count());
 
-    private Node head;
-    private Node tail;
-    private int count;
+        Console.WriteLine("----------");
 
-    /// <summary> Returns type of Queue. </summary>
-    /// <returns>Type of Queue.</returns>
-    public Type CheckType()
-    {
-        return typeof(T);
-    }
+        Queue<float> myFloatQ = new Queue<float>();
 
-    /// <summary> Adds new node to end of queue. </summary>
-    /// <param name="value">Value of new node.</param>
-    /// <returns>The value of new node.</returns>
-    public T Enqueue(T value)
-    {
-        Node newNode = new Node(value);
+        myFloatQ.Enqueue(9.8f);
+        Console.WriteLine("Number of nodes in queue: " + myFloatQ.Count());
 
-        if (head == null)
-        {
-            head = newNode;
-            tail = newNode;
-        }
-        else
-        {
-            tail.next = newNode;
-            tail = newNode;
-        }
+        Console.WriteLine("First value: " + myFloatQ.Dequeue());
 
-        count++;
-        return newNode.value;
-    }
+        Console.WriteLine("Number of nodes in queue: " + myFloatQ.Count());
 
-    /// <summary> Removes and returns value of the first node in the queue. </summary>
-    /// <returns>The value of first node.</returns>
-    public T Dequeue()
-    {
-        if (head == null)
-        {
-            Console.WriteLine("Queue is empty");
-            return default(T);
-        }
-
-        Node node = head;
-        head = node.next;
-        count--;
-
-        return node.value;
-    }
-
-    /// <summary> Returns the number of nodes in the queue. </summary>
-    /// <returns>The number of nodes in the queue.</returns>
-    public int Count()
-    {
-        int i = 0;
-        Node node = head;
-
-        while (node != null)
-        {
-            i++;
-            node = node.next;
-        }
-
-        count = i;
-        return count;
+        Console.WriteLine("First value: " + myFloatQ.Dequeue());
     }
 }
+carrie@ubuntu:~/csharp-generics/2-dequeue$
+carrie@ubuntu:~/csharp-generics/2-dequeue$ dotnet run
+Number of nodes in queue: 2
+First value: 100
+Number of nodes in queue: 1
+----------
+Number of nodes in queue: 1
+First value: 9.8
+Number of nodes in queue: 0
+Queue is empty
+First value: 0
+carrie@ubuntu:~/csharp-generics/2-dequeue$
+Repo:
+
+GitHub repository: atlas-csharp
+Directory: csharp-generics
+File: 2-dequeue/, 2-dequeue/2-dequeue.csproj, 2-dequeue/queue.cs
