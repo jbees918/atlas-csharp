@@ -1,63 +1,39 @@
-﻿using System;
-
-/// <summary> Queue class </summary>
+﻿// Define a simple queue class
 public class Queue<T>
 {
-    class Node
-    {
-        public T value;
-        public Node next;
+    // Store items in queue
+    private List<T> _items = new List<T>();
 
-        public Node(T value)
-        {
-            this.value = value;
-            this.next = null;
-        }
+    // Add item to end of queue
+    public void Enqueue(T item)
+    {
+        _items.Add(item);
     }
 
-    Node head;
-    Node tail;
-    int count;
-
-    /// <summary> Enqueue Method </summary>
-    public T Enqueue(T value)
+    // Remove and return item from front of queue
+    public T Dequeue()
     {
-        Node node = new Node(value);
-
-        if (tail == null)
+        if (_items.Count == 0)
         {
-            head = node;
-            tail = node;
+            throw new InvalidOperationException("Queue is empty");
+        }
+
+        T item = _items[0];
+        _items.RemoveAt(0);
+
+        return item;
+    }
+
+    // Return type of items in queue
+    public Type CheckType()
+    {
+        if (_items.Count > 0)
+        {
+            return _items[0].GetType();
         }
         else
         {
-            tail.next = node;
-            tail = node;
+            return typeof(T);
         }
-
-        count++;
-        return node.value;
-    }
-
-    ///<summary> Counts Nodes in Queue </summary>
-    public int Count()
-    {
-        int i = 0;
-        Node node = head;
-
-        while (node != null)
-        {
-            i++;
-            node = node.next;
-        }
-
-        count = i;
-        return count;
-    }
-
-    /// <summary> Returns the Queue's type </summary>
-    public Type CheckType()
-    {
-        return typeof(T);
     }
 }
