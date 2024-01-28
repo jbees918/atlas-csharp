@@ -1,34 +1,50 @@
-﻿using System;
-
-public class Player
+﻿/// <summary>
+/// Simple queue class.
+/// </summary>
+public class Queue<T>
 {
-    private float maxHp;
-    private string name;
-    private float hp;
+    // Items stored in queue
+    private List<T> _items = new List<T>();
 
     /// <summary>
-    /// Creates new Player.
+    /// Add item to end of queue.
     /// </summary>
-    /// <param name="name">Player name.</param>
-    /// <param name="maxHp">Max health points of player. Must be greater than 0. Default is 100f.</param>
-    public Player(string name = "Player", float maxHp = 100f)
+    /// <param name="item">Item to add.</param>
+    public void Enqueue(T item)
     {
-        if (maxHp <= 0)
-        {
-            maxHp = 100f;
-            Console.WriteLine("maxHp must be greater than 0. maxHp set to 100f by default.");
-        }
-
-        this.name = name;
-        this.maxHp = maxHp;
-        this.hp = maxHp;
+        _items.Add(item);
     }
 
     /// <summary>
-    /// Print player health.
+    /// Remove and return item from front of queue.
     /// </summary>
-    public void PrintHealth()
+    /// <returns>Front item of queue.</returns>
+    public T Dequeue()
     {
-        Console.WriteLine($"{name} has {hp} / {maxHp} health");
+        if (_items.Count == 0)
+        {
+            throw new InvalidOperationException("Queue is empty");
+        }
+
+        T item = _items[0];
+        _items.RemoveAt(0);
+
+        return item;
+    }
+
+    /// <summary>
+    /// Return type of items in queue.
+    /// </summary>
+    /// <returns>Type of queue items.</returns>
+    public Type CheckType()
+    {
+        if (_items.Count > 0)
+        {
+            return _items[0].GetType();
+        }
+        else
+        {
+            return typeof(T);
+        }
     }
 }
