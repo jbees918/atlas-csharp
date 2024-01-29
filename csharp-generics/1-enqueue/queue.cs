@@ -1,6 +1,6 @@
 ﻿public class Queue<T>
 {
-    // Nested Node class
+    // A nested Node class.
     public class Node
     {
         public T Value { get; set; }
