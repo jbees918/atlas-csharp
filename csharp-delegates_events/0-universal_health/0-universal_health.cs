@@ -10,7 +10,7 @@ public class Player
     private float hp;
 
     /// <summary>
-    /// Player constructor. Sets up a new player.
+    /// Player constructor. Sets up new player.
     /// </summary>
     /// <param name="name">Name of player. Defaults to "Player" if not given.</param>
     /// <param name="maxHp">Maximum HP of player. Needs to be more than 0. Defaults to 100f if not given or less than or equal to 0.</param>
