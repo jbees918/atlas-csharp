@@ -26,7 +26,7 @@ public class Player
     }
 
     /// <summary>
-    /// Prints player's name and current health.
+    /// Prints player name and current health.
     /// </summary>
     public void PrintHealth()
     {
