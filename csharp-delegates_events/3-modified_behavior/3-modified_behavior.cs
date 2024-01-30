@@ -1,83 +1,82 @@
 ﻿using System;
 
+/// <summary> Current Health Arguments </summary>
+public class CurrentHPArgs : EventArgs
+{
+    /// <summary> Current HP </summary>
+    public float currentHp { get; }
+
+    /// <summary> Current HP Arguments Constructor </summary>
+    public CurrentHPArgs(float newHp)
+    {
+        currentHp = newHp;
+    }
+}
+
 /// <summary> Player class </summary>
 public class Player
 {
     /// <summary> Player name </summary>
-    private string playerName;
+    protected string name;
     /// <summary> Player maxHp </summary>
-    private float maxHp;
+    protected float maxHp;
     /// <summary> Player hp </summary>
-    private float hp;
+    protected float hp;
+    /// <summary> Player status </summary>
+    private string status;
 
-    /// <summary> Player delegate </summary>
-    public delegate void CalculateHealth(float amount);
+    /// <summary> HP Check Event </summary>
+    public event EventHandler<CurrentHPArgs> HPCheck;
 
     /// <summary> Player Constructor </summary>
-    public Player(string name = "Player", float maxHp = 100f)
+    public Player(string name="Player", float maxHp=100f)
     {
-        this.playerName = name;
-        if (maxHp <= 0f)
-        {
+        if( maxHp <= 0f){
             Console.WriteLine("maxHp must be greater than 0. maxHp set to 100f by default.");
             maxHp = 100f;
         }
+        this.name = name;
         this.maxHp = maxHp;
         this.hp = this.maxHp;
+        this.status = $"{name} is ready to go!";
+        HPCheck += CheckStatus;
     }
 
-    /// <summary> PrintHealth Method </summary>
+    /// <summary> Print Health Method </summary>
     public void PrintHealth()
     {
-        Console.WriteLine("{0} has {1} / {2} health", playerName, hp, maxHp);
+        Console.WriteLine("{0} has {1} / {2} health", name, hp, maxHp);
     }
 
-    /// <summary> TakeDamage Method </summary>
-    public void TakeDamage(float damage)
+    /// <summary> Check Status Method </summary>
+    private void CheckStatus(object sender, CurrentHPArgs e)
     {
-        if (damage < 0f)
-            damage = 0f;
-        Console.WriteLine("{0} takes {1} damage!", playerName, damage);
-        ValidateHP(hp - damage);
+        if (e.currentHp == maxHp)
+        {
+            status = $"{name} is in perfect health!";
+        }
+        else if (e.currentHp >= maxHp * 0.5f && e.currentHp < maxHp)
+        {
+            status = $"{name} is doing well!";
+        }
+        else if (e.currentHp >= maxHp * 0.25f && e.currentHp < maxHp * 0.5f)
+        {
+            status = $"{name} isn't doing too great...";
+        }
+        else if (e.currentHp > 0 && e.currentHp < maxHp * 0.25f)
+        {
+            status = $"{name} needs help!";
+        }
+        else if (e.currentHp == 0)
+        {
+            status = $"{name} is knocked out!";
+        }
+        Console.WriteLine(status);
     }
 
-    /// <summary> HealDamage Method </summary>
-    public void HealDamage(float heal)
+    /// <summary> Validate Health Method </summary>
+    public void ValidateHP()
     {
-        if (heal < 0f)
-            heal = 0f;
-        Console.WriteLine("{0} heals {1} HP!", playerName, heal);
-        ValidateHP(hp + heal);
-    }
-
-    /// <summary> ValidateHP Method </summary>
-    public void ValidateHP(float newHp)
-    {
-        hp = Math.Clamp(newHp, 0, maxHp);
-    }
-
-    /// <summary> ApplyModifier Method </summary>
-    public float ApplyModifier(float baseValue, Modifier modifier)
-    {
-        if (modifier == Modifier.Weak)
-            return baseValue * 0.5f;
-        else if (modifier == Modifier.Strong)
-           return baseValue * 1.5f;
-        else
-            return baseValue;
+        HPCheck?.Invoke(this, new CurrentHPArgs(hp));
     }
 }
-
-/// <summary> Modifier Enum </summary>
-public enum Modifier
-{
-    /// <summary> Weak Modifier </summary>
-    Weak,
-    /// <summary> Base Modifier </summary>
-    Base,
-    /// <summary> Strong Modifier </summary>
-    Strong
-}
-
-/// <summary> CalculateModifier Delegate </summary>
-public delegate float CalculateModifier(float baseValue, Modifier modifier);
