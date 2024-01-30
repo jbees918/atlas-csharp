@@ -27,7 +27,7 @@ public class Queue<T>
         return typeof(T);
     }
 
-    /// <summary> Enqueue Method </summary>
+    /// <summary> Enqueue Method. </summary>
     public T Enqueue(T value)
     {
         Node node = new Node(value);
