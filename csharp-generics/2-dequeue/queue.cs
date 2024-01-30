@@ -5,24 +5,19 @@ public class Queue<T>
 {
     // ...
 
-    /// <summary> Removes the first element from the Queue and returns its value </summary>
+    /// <summary> Dequeue Method </summary>
     public T Dequeue()
     {
-        if (Head == null)
+        if (head == null)
         {
             Console.WriteLine("Queue is empty");
             return default(T);
         }
-
-        var temp = Head;
-        Head = Head.Next;
-        Count--;
-
-        if (Head == null)
-        {
-            Tail = null;
-        }
-
-        return temp.Value;
+        Node node = head;
+        head = node.next;
+        count--;
+        return node.value;
     }
+
+    // ...
 }
