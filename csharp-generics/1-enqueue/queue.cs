@@ -1,6 +1,6 @@
 ﻿using System;
 
-/// <summary> Queue class </summary>
+/// <summary> class Queue </summary>
 public class Queue<T>
 {
     class Node
@@ -8,10 +8,10 @@ public class Queue<T>
         public T value;
         public Node next;
 
-        public Node(T value)
+        public Node(T val)
         {
-            this.value = value;
-            this.next = null;
+            value = val;
+            next = null;
         }
     }
 
@@ -19,14 +19,16 @@ public class Queue<T>
     Node tail;
     int count;
 
+    /// <summary> Return Queue type </summary>
+    public Type CheckType() => typeof(T);
+
     /// <summary> Enqueue Method </summary>
     public T Enqueue(T value)
     {
         Node node = new Node(value);
         if (head == null)
         {
-            head = node;
-            tail = node;
+            head = tail = node;
         }
         else
         {
@@ -37,9 +39,17 @@ public class Queue<T>
         return node.value;
     }
 
-    /// <summary> Returns the Queue's type </summary>
-    public Type CheckType()
+    ///<summary> Count Nodes in the Queue </summary>
+    public int Count()
     {
-        return typeof(T);
+        int i = 0;
+        Node node = head;
+        while (node != null)
+        {
+            i++;
+            node = node.next;
+        }
+        count = i;
+        return count;
     }
 }
