@@ -5,10 +5,8 @@ public class Player
 {
     /// <summary> Player name </summary>
     protected string name;
-
     /// <summary> Player maxHp </summary>
     protected float maxHp;
-
     /// <summary> Player hp </summary>
     protected float hp;
 
