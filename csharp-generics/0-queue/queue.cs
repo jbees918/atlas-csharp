@@ -1,12 +1,13 @@
-using system;
+﻿﻿using System;
 
-/// <summary> Queue </summary>
+/// <summary> Queue class </summary>
 public class Queue<T>
 {
-    
-    /// <returns> Return Queue type </returns>
-    public type CheckType()
+
+    /// <summary> Return Queue type </summary>
+    public Type CheckType()
     {
         return typeof(T);
     }
+
 }
