@@ -31,14 +31,14 @@ public class Player
     /// <summary> Player Constructor </summary>
     public Player(string name="Player", float maxHp=100f)
     {
+        this.name = name;
         if( maxHp <= 0f){
             Console.WriteLine("maxHp must be greater than 0. maxHp set to 100f by default.");
             maxHp = 100f;
         }
-        this.name = name;
         this.maxHp = maxHp;
         this.hp = this.maxHp;
-        this.status = $"{name} is ready to go!";
+        this.status = String.Format("{0} is ready to go!", name);
         HPCheck += CheckStatus;
     }
 
@@ -48,35 +48,46 @@ public class Player
         Console.WriteLine("{0} has {1} / {2} health", name, hp, maxHp);
     }
 
-    /// <summary> Check Status Method </summary>
-    private void CheckStatus(object sender, CurrentHPArgs e)
+    /// <summary> Take Damage Method </summary>
+    public void TakeDamage(float damage)
     {
-        if (e.currentHp == maxHp)
-        {
-            status = $"{name} is in perfect health!";
-        }
-        else if (e.currentHp >= maxHp * 0.5f && e.currentHp < maxHp)
-        {
-            status = $"{name} is doing well!";
-        }
-        else if (e.currentHp >= maxHp * 0.25f && e.currentHp < maxHp * 0.5f)
-        {
-            status = $"{name} isn't doing too great...";
-        }
-        else if (e.currentHp > 0 && e.currentHp < maxHp * 0.25f)
-        {
-            status = $"{name} needs help!";
-        }
-        else if (e.currentHp == 0)
-        {
-            status = $"{name} is knocked out!";
-        }
-        Console.WriteLine(status);
+        if( damage < 0f)
+            damage = 0f;
+        Console.WriteLine("{0} takes {1} damage!", name, damage);
+        ValidateHP(hp - damage);
+    }
+
+    /// <summary> Heal Damage Method </summary>
+    public void HealDamage(float heal)
+    {
+        if( heal < 0f)
+            heal = 0f;
+        Console.WriteLine("{0} heals {1} HP!", name, heal);
+        ValidateHP(hp + heal);
     }
 
     /// <summary> Validate Health Method </summary>
-    public void ValidateHP()
+    public void ValidateHP(float newHp)
     {
-        HPCheck?.Invoke(this, new CurrentHPArgs(hp));
+        hp = Math.Clamp(newHp, 0, maxHp);
+        HPCheck(this, new CurrentHPArgs(this.hp));
+    }
+
+    /// <summary> Check Status Method </summary>
+    public void CheckStatus(object sender, CurrentHPArgs e)
+    {
+        float state = e.currentHp/maxHp;
+        if (state == 1)
+            status = String.Format("{0} is in perfect health!", name);
+        else if (state >=0.5f)
+            status = String.Format("{0} is doing well!", name);
+        else if (state >=0.25f)
+            status = String.Format("{0} isn't doing too great...", name);
+        else if (state >0f)
+            status = String.Format("{0} needs help!", name);
+        else
+            status = String.Format("{0} is knocked out!", name);
+
+        Console.WriteLine(status);
     }
 }
