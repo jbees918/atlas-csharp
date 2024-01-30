@@ -1,43 +1,12 @@
-﻿public class Queue<T>
+using system;
+
+/// <summary> Queue </summary>
+public class Queue<T>
 {
-    // A nested Node class
-    public class Node
+    
+    /// <returns> Return Queue type </returns>
+    public type CheckType()
     {
-        public T Value { get; set; }
-        public Node Next { get; set; }
-
-        public Node(T value)
-        {
-            Value = value;
-        }
-    }
-
-    // Properties
-    public Node Head { get; private set; }
-    public Node Tail { get; private set; }
-    public int Count { get; private set; }
-
-    // Enqueue method
-    public void Enqueue(T item)
-    {
-        var newNode = new Node(item);
-
-        if (Head == null)
-        {
-            Head = newNode;
-        }
-        else
-        {
-            Tail.Next = newNode;
-        }
-
-        Tail = newNode;
-        Count++;
-    }
-
-    // CountNodes method
-    public int CountNodes()
-    {
-        return Count;
+        return typeof(T);
     }
 }
