@@ -1,47 +1,62 @@
-﻿using System;
+﻿﻿using System;
 
-class Queue<T>
+/// <summary> Queue class </summary>
+public class Queue<T>
 {
-    public Node head = null;
-    public Node tail = null;
-    public int count = 1;
 
-    public int Count()
+    class Node
     {
-        return count;
-    }
+        public T value;
+        public Node next;
 
-    public void Enqueue(T value)
-    {
-        Node newNode = new Node(value);
-
-        if (tail == null)
+        public Node(T value)
         {
-            head = newNode;
-            tail = newNode;
-        }
-        else
-        {
-            tail.next = newNode;
-            tail = newNode;
-            count++;
+            this.value = value;
+            this.next = null;
         }
     }
 
+    Node head;
+    Node tail;
+    
+    int count;
+
+    /// <summary> Return Queue type </summary>
     public Type CheckType()
     {
         return typeof(T);
     }
 
-    public class Node
+    /// <summary> Enqueue Method </summary>
+    public T Enqueue(T value)
     {
-        public T value { get; set; }
-        public Node next { get; set; }
-
-        public Node(T val)
+        Node node = new Node(value);
+        if (head == null)
         {
-            value = val;
-            next = null;
+            head = node;
+            tail = node;
         }
+        else
+        {
+            tail.next = node;
+            tail = node;
+        }
+        count++;
+        return node.value;
     }
+
+    ///<summary> Count Nodes in the Queue </summary>
+    public int Count()
+    {
+        int i = 0;
+        Node node = head;
+        while (node != null)
+        {
+            i++;
+            node = node.next;
+        }
+        count = i;
+        return count;
+    }
+
 }
