@@ -101,15 +101,8 @@ public class Queue<T>
         return head.Value;
     }
 
-    /// <summary>
-    /// Returns the type of elements stored in the queue.
-    /// </summary>
-    /// <returns>The type of elements in the queue.</returns>
     public Type CheckType() => typeof(T);
 
-    /// <summary>
-    /// Prints all elements in the queue.
-    /// </summary>
     public void Print()
     {
         Node temp = head;

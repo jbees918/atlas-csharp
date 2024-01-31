@@ -1,6 +1,5 @@
 ﻿﻿using System;
 
-/// <summary> Queue class </summary>
 public class Queue<T>
 {
 
@@ -21,13 +20,11 @@ public class Queue<T>
     
     int count;
 
-    /// <summary> Returns the Queue's type </summary>
     public Type CheckType()
     {
         return typeof(T);
     }
 
-    /// <summary> Enqueue Method </summary>
     public T Enqueue(T value)
     {
         Node node = new Node(value);
@@ -45,7 +42,6 @@ public class Queue<T>
         return node.value;
     }
     
-    /// <summary> Dequeue Method </summary>
     public T Dequeue()
     {
         if (head == null)
@@ -58,8 +54,6 @@ public class Queue<T>
         count--;
         return node.value;
     }
-
-    ///<summary> Peek Method </summary>
     public T Peek()
     {
         if (head == null)
@@ -69,8 +63,6 @@ public class Queue<T>
         }
         return head.value;
     }
-
-    ///<summary> Print Method </summary>
     public void Print()
     {
         if (head == null)
@@ -85,9 +77,6 @@ public class Queue<T>
             node = node.next;
         }
     }
-
-
-    ///<summary> Counts Nodes in Queue </summary>
     public int Count()
     {
         int i = 0;
@@ -100,8 +89,6 @@ public class Queue<T>
         count = i;
         return count;
     }
-
-    ///<summary> Concatenates all values in the queue only if the queue is of type String or Char </summary>
     public string Concatenate
     {
         if (head == null)
