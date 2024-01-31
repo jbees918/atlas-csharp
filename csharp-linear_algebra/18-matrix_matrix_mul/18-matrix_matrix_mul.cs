@@ -1,9 +1,11 @@
 ﻿using System;
 
-// Class responsible for matrix mathematical operations
+/// <summary>
+///  Class responsible for matrix mathematical operations
+/// </summary>
 public class MatrixMath
 {
-    // Method to multiply two matrices
+    /// <summary Method to multiply two matrices </summary>
     public static double[,] Multiply(double[,] matrix1, double[,] matrix2)
     {
         // Check if matrices can be multiplied
