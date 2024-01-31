@@ -1,25 +1,63 @@
 ﻿using System;
 
-/// <summary> Queue class. </summary>
-public class Queue<T>
+class CustomQueue<T>
 {
     // ...
 
-    /// <summary> Print Method. </summary>
-    public void Print()
+    public int GetCount()
+    {
+        return count;
+    }
+
+    public void AddItem(T value)
+    {
+        Node newNode = new Node(value);
+
+        if (tail == null)
+        {
+            head = newNode;
+            tail = newNode;
+            count++;
+        }
+        else
+        {
+            tail.next = newNode;
+            tail = newNode;
+            count++;
+        }
+    }
+
+    public T RemoveItem()
     {
         if (head == null)
         {
             Console.WriteLine("Queue is empty");
-            return;
+            return default(T);
         }
-        Node node = head;
-        while (node != null)
+        T  value = head.value;
+
+        head = head.next;
+        count--;
+
+        if (head == null)
         {
-            Console.WriteLine(node.value);
-            node = node.next;
+            tail = null;
         }
+
+        return value;
     }
 
     // ...
+
+    public class Node
+    {
+        public T value { get; set; }
+        public Node next { get; set; }
+
+        public Node(T val)
+        {
+            value = val;
+            next = null;
+        }
+    }
 }
