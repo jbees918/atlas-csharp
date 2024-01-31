@@ -38,7 +38,7 @@ public class Queue<T>
     /// <summary>
     /// Gets the number of nodes in the queue.
     /// </summary>
-    public int Count => count;
+    public int Count() => count;
 
     /// <summary>
     /// Adds a new element to the end of the queue.
@@ -86,7 +86,7 @@ public class Queue<T>
     }
 
     /// <summary>
-    /// Returns the value of the first element in the queue without removing it.
+    /// Returns value of first element in the queue without removing it.
     /// </summary>
     /// <returns>The value of the first element.</returns>
     public T Peek()
