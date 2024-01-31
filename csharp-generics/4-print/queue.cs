@@ -1,40 +1,32 @@
-﻿using System;
+﻿﻿using System;
 
-/// <summary> Generic queue </summary>
-public class Queue<T>
+class Queue<T>
 {
-    /// <summary> Node class </summary>
-    class Node
+    public Node head = null;
+    public Node tail = null;
+    public int count = 0;
+
+    public int Count()
     {
-        public T Value { get; set; }
-        public Node Next { get; set; }
-
-        public Node(T val)
-        {
-            Value = val;
-            Next = null;
-        }
+        return count;
     }
-
-    private Node head;
-    private Node tail;
-    private int count;
-
-    public int Count => count;
 
     public void Enqueue(T value)
     {
         Node newNode = new Node(value);
+
         if (tail == null)
         {
-            head = tail = newNode;
+            head = newNode;
+            tail = newNode;
+            count++;
         }
         else
         {
-            tail.Next = newNode;
+            tail.next = newNode;
             tail = newNode;
+            count++;
         }
-        count++;
     }
 
     public T Dequeue()
@@ -44,8 +36,9 @@ public class Queue<T>
             Console.WriteLine("Queue is empty");
             return default(T);
         }
-        T value = head.Value;
-        head = head.Next;
+        T  value = head.value;
+
+        head = head.next;
         count--;
 
         if (head == null)
@@ -56,26 +49,45 @@ public class Queue<T>
         return value;
     }
 
-    ///<summary> Peek Method </summary>
-     public T Peek()
+    public T Peek()
     {
         if (head == null)
         {
             Console.WriteLine("Queue is empty");
             return default(T);
         }
-        return head.value;
+        T  value = head.value;
+        return value;
     }
 
-    public Type CheckType() => typeof(T);
+    public Type CheckType()
+    {
+        return typeof(T);
+    }
 
     public void Print()
     {
         Node temp = head;
+        if (head == null)
+        {
+            Console.WriteLine("Queue is empty");
+        }
         while (temp != null)
         {
-            Console.WriteLine(temp.Value);
-            temp = temp.Next;
+            Console.WriteLine(temp.value);
+            temp = temp.next;
+        }
+    }
+
+    public class Node
+    {
+        public T value { get; set; }
+        public Node next { get; set; }
+
+        public Node(T val)
+        {
+            value = val;
+            next = null;
         }
     }
 }
