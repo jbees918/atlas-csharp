@@ -1,42 +1,56 @@
 ﻿using System;
 
-class CustomQueue<T>
+/// <summary>
+/// Generic queue implementation.
+/// </summary>
+/// <typeparam name="T">Type of elements in the queue.</typeparam>
+public class CustomQueue<T>
 {
-    // ...
-
-    public int GetCount()
+    /// <summary>
+    /// Node class for representing elements in the queue.
+    /// </summary>
+    public class Node
     {
-        return count;
+        public T Value { get; set; }
+        public Node Next { get; set; }
+
+        public Node(T val)
+        {
+            Value = val;
+            Next = null;
+        }
     }
 
-    public void AddItem(T value)
+    private Node head;
+    private Node tail;
+    private int count;
+
+    public int Count => count;
+
+    public void Enqueue(T value)
     {
         Node newNode = new Node(value);
-
         if (tail == null)
         {
-            head = newNode;
-            tail = newNode;
-            count++;
+            head = tail = newNode;
         }
         else
         {
-            tail.next = newNode;
+            tail.Next = newNode;
             tail = newNode;
-            count++;
         }
+        count++;
     }
 
-    public T RemoveItem()
+    public T Dequeue()
     {
         if (head == null)
         {
             Console.WriteLine("Queue is empty");
             return default(T);
         }
-        T  value = head.value;
-
-        head = head.next;
+        T value = head.Value;
+        head = head.Next;
         count--;
 
         if (head == null)
@@ -47,17 +61,17 @@ class CustomQueue<T>
         return value;
     }
 
-    // ...
+    public T Peek() => head?.Value ?? default(T);
 
-    public class Node
+    public Type CheckType() => typeof(T);
+
+    public void Print()
     {
-        public T value { get; set; }
-        public Node next { get; set; }
-
-        public Node(T val)
+        Node temp = head;
+        while (temp != null)
         {
-            value = val;
-            next = null;
+            Console.WriteLine(temp.Value);
+            temp = temp.Next;
         }
     }
 }
