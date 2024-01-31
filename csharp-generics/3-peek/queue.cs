@@ -41,27 +41,6 @@ public class Queue<T>
     public int Count() => count;
 
     /// <summary>
-    /// Adds a new element to the end of the queue.
-    /// </summary>
-    /// <param name="value">The value to enqueue.</param>
-    public void Enqueue(T value)
-    {
-        Node newNode = new Node(value);
-
-        if (tail == null)
-        {
-            head = tail = newNode;
-        }
-        else
-        {
-            tail.Next = newNode;
-            tail = newNode;
-        }
-
-        count++;
-    }
-
-    /// <summary>
     /// Removes and returns the first element in the queue.
     /// </summary>
     /// <returns>The value of the dequeued element.</returns>
@@ -83,6 +62,28 @@ public class Queue<T>
         }
 
         return value;
+    }
+
+
+    /// <summary>
+    /// Adds a new element to the end of the queue.
+    /// </summary>
+    /// <param name="value">The value to enqueue.</param>
+    public void Enqueue(T value)
+    {
+        Node newNode = new Node(value);
+
+        if (tail == null)
+        {
+            head = tail = newNode;
+        }
+        else
+        {
+            tail.Next = newNode;
+            tail = newNode;
+        }
+
+        count++;
     }
 
     /// <summary>
