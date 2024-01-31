@@ -16,18 +16,28 @@ public class Queue<T>
         }
     }
 
-    Node head;
     Node tail;
+    Node head;
     
     int count;
 
-    /// <summary> Return Queue type </summary>
     public Type CheckType()
     {
         return typeof(T);
     }
 
-    /// <summary> Enqueue Method. </summary>
+    public int Count()
+    {
+        int i = 0;
+        Node node = head;
+        while (node != null)
+        {
+            i++;
+            node = node.next;
+        }
+        count = i;
+        return count;
+    }
     public T Enqueue(T value)
     {
         Node node = new Node(value);
@@ -43,20 +53,6 @@ public class Queue<T>
         }
         count++;
         return node.value;
-    }
-
-    ///<summary> Count Nodes in the Queue </summary>
-    public int Count()
-    {
-        int i = 0;
-        Node node = head;
-        while (node != null)
-        {
-            i++;
-            node = node.next;
-        }
-        count = i;
-        return count;
     }
 
 }
