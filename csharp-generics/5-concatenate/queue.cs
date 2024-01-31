@@ -102,7 +102,7 @@ public class Queue<T>
     }
 
     ///<summary> Concatenates all values in the queue only if the queue is of type String or Char </summary>
-    public string Concatenate()
+    public string Concatenate
     {
         if (head == null)
         {
