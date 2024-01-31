@@ -56,7 +56,16 @@ public class Queue<T>
         return value;
     }
 
-    public T Peek() => head?.Value ?? default(T);
+    ///<summary> Peek Method </summary>
+     public T Peek()
+    {
+        if (head == null)
+        {
+            Console.WriteLine("Queue is empty");
+            return default(T);
+        }
+        return head.value;
+    }
 
     public Type CheckType() => typeof(T);
 
