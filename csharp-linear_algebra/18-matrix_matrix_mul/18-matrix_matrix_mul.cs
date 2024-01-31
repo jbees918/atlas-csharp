@@ -1,10 +1,8 @@
 ﻿using System;
 
-/// <summary> class Matrix Math </summary>
 public static class MatrixMath
 {
 
-    /// <summary> Mat Sca Mul Method </summary>
     public static double[,] MultiplyScalar(double[,] matrix, double scalar)
     {
         if(matrix.GetLength(0) < 2 || matrix.GetLength(0) > 3 ||
@@ -18,7 +16,6 @@ public static class MatrixMath
         return result;
     }
 
-     /// <summary> Matrix Addition Method</summary>
     public static double[,] Add(double[,] matrix1, double[,] matrix2)
     {
         if (matrix1.GetLength(0) != matrix2.GetLength(0) ||
@@ -34,16 +31,6 @@ public static class MatrixMath
         return sum;
     }
 
-    ///<summary> Valiadate Matrix to 2D or 3D </summary>
-    public static bool ValidateMatrix(double[,] matrix)
-    {
-        if (matrix.GetLength(0) < 2 || matrix.GetLength(0) > 3 ||
-        matrix.GetLength(1) < 2 || matrix.GetLength(1) > 3)
-            return false;
-        return true;
-    }
-
-   
     public static double[,] Multiply(double[,] matrix1, double[,] matrix2)
     {
         if (matrix1.GetLength(1) != matrix2.GetLength(0))
@@ -55,5 +42,14 @@ public static class MatrixMath
                 for (int Col_A = 0; Col_A < matrix1.GetLength(1); Col_A++)
                     result[Row_A, Col_B] += matrix1[Row_A, Col_A] * matrix2[Col_A, Col_B];
         return result;
+    }
+
+    
+    public static bool ValidateMatrix(double[,] matrix)
+    {
+        if (matrix.GetLength(0) < 2 || matrix.GetLength(0) > 3 ||
+        matrix.GetLength(1) < 2 || matrix.GetLength(1) > 3)
+            return false;
+        return true;
     }
 }
